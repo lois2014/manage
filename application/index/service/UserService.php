@@ -22,7 +22,8 @@ class UserService extends BaseService
     {
         $user = new User();
         $info = $user->where('status',1)->where('username',$name)->where('password',md5($password))->find();
-        $id = $info->get('id');
-        return $id;
+        if(empty($info)) return '';
+        $info = $info->visible(['id'])->toArray();
+        return $info['id'];
     }
 }

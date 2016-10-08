@@ -7,9 +7,7 @@ declare var __moduleName: string;
     selector: 'my-app',
     moduleId: __moduleName,
     template:`
-         <nav>
-            <router-outlet></router-outlet>
-         </nav>  
+           <router-outlet></router-outlet>
     `,
     styleUrls:[`
         'http://local.tp5.com/public/angular/css/app.component.css',
@@ -19,19 +17,6 @@ declare var __moduleName: string;
     ],
 })
 
-export class AppComponent implements OnInit{
+export class AppComponent{
     title = ' Tour of heroes';
-    info : any;
-
-    constructor( private user:UserService,
-                 private router:Router
-    ){}
-
-    ngOnInit():void{
-        this.user.checkLogin().subscribe(d=>{
-            if(d.state == 0) {
-                alert(d.msg);
-            }
-        });
-    }
 }

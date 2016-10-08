@@ -17,19 +17,17 @@ export class AuthService {
     constructor( private user:UserService){}
 
     login(name:string,pwd:string): Observable <any> {
-        this.user.login(name,pwd).subscribe(val=>{
-            if(val.state == 1){
-                this.isLoggedIn = true;
-            }
-        });
-        return Observable.of(true).delay(1000).do(this.isLoggedIn = true);
+        return this.user.login(name,pwd);
     }
-    checkLogin():void{
+    checkLogin():boolean{
         this.user.checkLogin().subscribe(val=>{
             if(val.state == 1){
                 this.isLoggedIn = true;
+                return true;
             }
         });
+
+        return this.isLoggedIn;
     }
 
     logout(): void {
@@ -38,6 +36,5 @@ export class AuthService {
                 this.isLoggedIn = false;
             }
         });
-        this.isLoggedIn = false;
     }
 }

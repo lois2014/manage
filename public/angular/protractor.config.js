@@ -34,7 +34,7 @@ exports.config = {
   useAllAngular2AppRoots: true,
 
   // Base URL for application server
-  baseUrl: 'http://localhost/',
+  baseUrl: 'http://local.tp5.com/public/angular',
 
   // doesn't seem to work.
   // resultJsonOutputFile: "foo.json",

@@ -2,17 +2,20 @@
 
 namespace app\index\controller;
 use app\index\service\UserService;
+use think\Cookie;
+use think\Request;
+
 class User extends Base
 {
     public function login(){
-        if(!isset($_POST['username'])) {
+
+        $post = $this->getJson(Request::instance()->post());
+//        var_dump($post);die;
+        if(!isset($post['username']) || !isset($post['password'])) {
             return $this->ajaxFail('数据为空');
         }
-        if(!isset($_POST['password'])) {
-            return $this->ajaxFail('数据为空');
-        }
-        $name = $_POST['username'];
-        $password = $_POST['password'];
+        $name = $post['username'];
+        $password = $post['password'];
         $user = new UserService();
         $id = $user->checkUser($name,$password);
         if(!empty($id)){
@@ -20,7 +23,9 @@ class User extends Base
                 'name'=>$name,
                 'id'=>$id
             ];
-            $_COOKIE['user'] = $info;
+            if(!Cookie::has('user')) {
+                Cookie::set('user', $info);
+            }
             return $this->ajaxSuccess();
         }
         return $this->ajaxFail('用户名或者密码错误');
@@ -33,14 +38,14 @@ class User extends Base
     }
 
     public function isLogin(){
-        if(isset($_COOKIE['user']) && !empty($_COOKIE['user'])){
+        if(Cookie::has('user')){
            return $this->ajaxSuccess();
         }
         return $this->ajaxFail('请先登陆');
     }
 
     public function logout(){
-        $_COOKIE['user'] = '';
+       Cookie::delete('user');
         return $this->ajaxSuccess();
     }
 }

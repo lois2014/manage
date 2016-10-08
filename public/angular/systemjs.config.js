@@ -7,7 +7,7 @@
     paths: {
       // paths serve as alias
       'npm:': 'node_modules/',
-      'base_url':'http://localhost/tp5/'
+      'base_url':'http://local.tp5.com/public/angular/'
     },
     // map tells the System loader where to look for things
     map: {

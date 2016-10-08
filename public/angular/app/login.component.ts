@@ -1,49 +1,60 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from "./user.service";
+import { Location } from '@angular/common';
 import {Router} from "@angular/router";
 import {AuthService} from "./auth.service";
+import {User} from "./user";
+import {UserService} from "./user.service";
 
 declare var __moduleName : string;
 
 @Component({
   selector:'app-login',
   moduleId: __moduleName,
-  templateUrl:'/public/angular/tpl/login.component.html'
+  templateUrl:'/public/angular/tpl/login.component.html',
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
-  isLog : boolean = true;
   submitted = false;
   active = true;
-    // isLogin():void{
-    //     this.user.checkLogin().then(val=>{
-    //       if(val.state == 0){
-    //         this.router.navigate(['/dashboard']);
-    //       }
-    //     });
-    // }
-    // ngOnInit(){
-    //     this.isLogin();
+
+  model = new User(1,'','');
 
   message: string;
-  constructor(public authService: AuthService, public router: Router) {
-    this.setMessage();
+  constructor(private authService: AuthService,
+              private router: Router,
+              private location:Location,
+              private user:UserService
+  ) {
+    this.message = '';
+  }
+
+  ngOnInit():void{
+    this.user.checkLogin().subscribe(d=>{
+      if(d.state == 1) {
+        this.router.navigate(['/app']);
+      }
+    });
   }
 
   setMessage() {
     this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
   }
-  login(name:string,pwd:string) {
+  login(model) {
     this.message = 'Trying to log in ...';
-    this.authService.login(name,pwd).subscribe(val => {
-      this.setMessage();
+    this.authService.login(model.name,model.password).subscribe(val => {
+
       if (val.state == 1) {
+        this.setMessage();
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
-        let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/app/dashboard';
+        let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/app';
         // Redirect the user
         this.router.navigate([redirect]);
+      }
+      else {
+        alert(val.msg);
+        this.location.back();
       }
     });
   }
@@ -52,9 +63,9 @@ export class LoginComponent {
     this.setMessage();
   }
 
-    onSubmit(name:string,pwd:string){
+    onSubmit(){
     this.submitted = true;
-        this.login(name,pwd);
+      this.login(this.model);
   }
 
 }

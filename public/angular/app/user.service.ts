@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import {User} from "./user";
 import {Http, Headers, Response, RequestOptions} from "@angular/http";
-import { BaseService } from "./base.service";
 
-import {Observable} from "rxjs/Rx";
+import {Observable} from "rxjs/Observable";
+import 'rxjs/add/operator/map';
+// Statics
+import 'rxjs/add/observable/throw';
+// Operators
+import 'rxjs/add/operator/catch';
 @Injectable()
 export class UserService{
     private isLoginUrl = 'http://local.tp5.com/public/index.php/user/isLogin';
@@ -19,11 +22,10 @@ export class UserService{
 
     login(name:string,pwd:string):Observable <any>
     {
-        let user = new Array(2);
-        user['username'] = name;
-        user['password'] = pwd;
-        let body = JSON.stringify({ user });
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let username = name;
+        let password = pwd;
+        let body = JSON.stringify({ username, password });
+        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         let options = new RequestOptions({ headers: headers });
 
         return this.http.post(this.loginUrl, body, options)

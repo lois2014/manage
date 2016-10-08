@@ -31,4 +31,8 @@ class Base extends Controller
         ];
         return json_encode($return);
     }
+
+    public function getJson($data){
+        return json_decode(key($data),true);
+    }
 }
