@@ -10,6 +10,8 @@ class Base extends Controller
 {
     public $view;
 
+    const DEFAULT_PAGE = 10;
+
     public function _initialize()
     {
         $this->view = new View([],Config::get('view_replace_str'));
@@ -32,7 +34,7 @@ class Base extends Controller
         return json_encode($return);
     }
 
-    public function getJson($data){
+    public function getPost($data){
         return json_decode(key($data),true);
     }
 }

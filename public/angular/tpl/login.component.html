@@ -27,3 +27,8 @@
         </form>
     </div>
 </div>
+
+<div *ngIf="authService.isLoggedIn">
+    <button (click)="logout()">Logout</button>
+    <a routerLink="/app" routerLinkActive="active">Home</a>
+</div>

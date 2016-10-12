@@ -8,9 +8,7 @@ use think\Request;
 class User extends Base
 {
     public function login(){
-
-        $post = $this->getJson(Request::instance()->post());
-//        var_dump($post);die;
+        $post = json_decode(Request::instance()->getContent(),true);
         if(!isset($post['username']) || !isset($post['password'])) {
             return $this->ajaxFail('数据为空');
         }

@@ -24,16 +24,13 @@ export class HeroesComponent implements OnInit {
     }
     ngOnInit(): void {
         this.getHeroes();
-        if(this.heroes != undefined) {
-            alert(this.heroes);
-        }
     }
     onSelect(hero: Hero):void{
         this.selectedHero = hero;
     }
 
     gotoDetail():void{
-        this.router.navigate(['/detail',this.selectedHero.id]);
+        this.router.navigate(['/app/detail',this.selectedHero.id]);
     }
 
     private handleError(error: any): Promise<any> {

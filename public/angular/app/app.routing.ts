@@ -4,15 +4,17 @@ import { Routes,RouterModule,Router  } from '@angular/router';
 import { HeroesComponent } from './heroes.component';
 import { HeroDetailComponent } from './hero-detail.component';
 import {DashboardComponent} from "./dashboard.component";
-import {AppComponent} from "./app.component";
 import {loginRoutes, authProviders} from "./login.routing";
 import {CanDeactivateGuard} from "./can_deactivate_guard.service";
 import {AuthGuard} from "./auth_guide.service";
+import {HomeComponent} from "./home.component";
+import {DeviceComponent} from "./device.component";
+import {DeviceDetailComponent} from "./device_detail.component";
 const appRoutes : Routes = [
     ...loginRoutes,
     {
         path: 'app',
-        component: AppComponent,
+        component: HomeComponent,
         canActivate: [AuthGuard],
         children: [
             {
@@ -24,8 +26,16 @@ const appRoutes : Routes = [
                 component: HeroDetailComponent
             },
             {
-                path: '/dashboard',
+                path: 'dashboard',
                 component: DashboardComponent
+            },
+            {
+                path:'devices',
+                component: DeviceComponent
+            },
+            {
+                path:'device/:id',
+                component: DeviceDetailComponent
             },
             {
                 path: '',

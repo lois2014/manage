@@ -24,4 +24,7 @@ return [
     'user/isLogin'=>'index/User/isLogin',
     'user/login'=>'index/User/login',
     'user/logout'=>'index/User/logout',
+    'device/add'=>'index/Device/add',
+    'device/list'=>'index/Device/deviceList',
+    'device/detail'=>'index/Device/detail'
 ];

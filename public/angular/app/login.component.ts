@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import { Location } from '@angular/common';
 import {Router} from "@angular/router";
 import {AuthService} from "./auth.service";
 import {User} from "./user";
@@ -23,7 +22,6 @@ export class LoginComponent implements OnInit{
   message: string;
   constructor(private authService: AuthService,
               private router: Router,
-              private location:Location,
               private user:UserService
   ) {
     this.message = '';
@@ -32,7 +30,7 @@ export class LoginComponent implements OnInit{
   ngOnInit():void{
     this.user.checkLogin().subscribe(d=>{
       if(d.state == 1) {
-        this.router.navigate(['/app']);
+        this.router.navigate(['../app']);
       }
     });
   }
@@ -43,21 +41,22 @@ export class LoginComponent implements OnInit{
   login(model) {
     this.message = 'Trying to log in ...';
     this.authService.login(model.name,model.password).subscribe(val => {
-
       if (val.state == 1) {
         this.setMessage();
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
-        let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/app';
+        let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '../app';
         // Redirect the user
+        // alert(redirect);
         this.router.navigate([redirect]);
       }
       else {
         alert(val.msg);
-        this.location.back();
       }
+      location.reload();
     });
   }
+
   logout() {
     this.authService.logout();
     this.setMessage();
