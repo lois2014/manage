@@ -77,4 +77,16 @@ class Device extends Base
         }
         return $this->ajaxSuccess($info);
     }
+
+    public function update()
+    {
+        $post = json_decode(Request::instance()->getContent(),true);
+        if(empty($post)) return $this->ajaxFail('数据为空');
+        $device = new DeviceService();
+        $info = $device->updateDevice($post);
+        if(empty($info)){
+            return $this->ajaxFail('设备不存在');
+        }
+        return $this->ajaxSuccess($info);
+    }
 }

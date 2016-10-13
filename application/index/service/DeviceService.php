@@ -49,4 +49,11 @@ class DeviceService extends BaseService
         $info['types'] = $types;
         return $info;
     }
+
+    public function updateDevice($data)
+    {
+        $device = new Device();
+        $device->allowField(true)->save($data);
+        return $data;
+    }
 }

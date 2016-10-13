@@ -87,7 +87,6 @@ export class DeviceComponent implements OnInit{
     }
 
     gotoDetail(){
-        alert('detail');
         this.router.navigate(['../app/device/',this.selected.id]);
     }
 
@@ -96,7 +95,6 @@ export class DeviceComponent implements OnInit{
     }
 
     getChoice(){
-        alert('sadf');
         this.device.addDevice('').subscribe(val=>{
                 this.maker = val.data.maker;
                 this.type = val.data.type;

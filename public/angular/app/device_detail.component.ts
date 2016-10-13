@@ -19,6 +19,7 @@ export class DeviceDetailComponent implements OnInit{
 
     submitted = false;
     active = true;
+    model:any;
 
     constructor(private device:DeviceService,
                 private route:ActivatedRoute,
@@ -32,7 +33,7 @@ export class DeviceDetailComponent implements OnInit{
         this.device.getDetail(id).subscribe(val=>{
             if(val.state == 1){
                 this.dev = val.data;
-                alert(this.dev.name);
+                this.model = val.data;
             }else{
                 alert(val.msg);
             }
@@ -46,9 +47,25 @@ export class DeviceDetailComponent implements OnInit{
         });
     }
 
+    updateDevice(data:any){
+        // alert(data.name);
+        this.device.updateDevice(data).subscribe(val=>{
+             if(val.state == 1){
+                 alert('更新成功');
+                 this.submitted = false;
+             }else{
+                 alert(val.msg);
+                 this.dev = this.model;
+             }
+             alert('kkkk');
+             this.router.navigate(['../app/device/',{id:this.dev.id}]);
+         });
+        this.router.navigate(['../app/device/',{id:this.dev.id}]);
+    }
+
     onSubmit()
     {
-        this.submitted = false;
-        alert('update');
+        this.submitted = true;
+        this.updateDevice(this.dev);
     }
 }

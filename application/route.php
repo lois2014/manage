@@ -26,5 +26,6 @@ return [
     'user/logout'=>'index/User/logout',
     'device/add'=>'index/Device/add',
     'device/list'=>'index/Device/deviceList',
-    'device/detail'=>'index/Device/detail'
+    'device/detail'=>'index/Device/detail',
+    'device/update'=>'index/Device/update',
 ];
