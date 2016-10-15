@@ -33,7 +33,6 @@ export class DeviceDetailComponent implements OnInit{
         this.device.getDetail(id).subscribe(val=>{
             if(val.state == 1){
                 this.dev = val.data;
-                this.model = val.data;
             }else{
                 alert(val.msg);
             }
@@ -55,12 +54,10 @@ export class DeviceDetailComponent implements OnInit{
                  this.submitted = false;
              }else{
                  alert(val.msg);
-                 this.dev = this.model;
              }
-             alert('kkkk');
-             this.router.navigate(['../app/device/',{id:this.dev.id}]);
+             this.router.navigate(['../app/device/',data.id]);
          });
-        this.router.navigate(['../app/device/',{id:this.dev.id}]);
+        this.router.navigate(['../app/device/',data.id]);
     }
 
     onSubmit()

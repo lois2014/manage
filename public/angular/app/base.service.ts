@@ -21,7 +21,7 @@ export class BaseService {
 
     postData(data:any,url:string):Observable <any> {
         let body = JSON.stringify(data);
-        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded','data': body });
+        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         let options = new RequestOptions({ headers: headers });
         return this.http.post(url,body,options)
             .map(this.extractData)
