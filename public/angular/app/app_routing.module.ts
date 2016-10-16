@@ -1,8 +1,5 @@
 import{ NgModule } from '@angular/core';
 import {RouterModule} from "@angular/router";
-import { HeroesComponent } from './heroes.component';
-import { HeroDetailComponent } from './hero-detail.component';
-import {DashboardComponent} from "./dashboard.component";
 import {AuthGuard} from "./auth_guide.service";
 import {HomeComponent} from "./home.component";
 import {DeviceComponent} from "./device.component";
@@ -19,18 +16,6 @@ import {LoginComponent} from "./login.component";
                 canActivate: [AuthGuard],
                 children: [
                     {
-                        path: 'heroes',
-                        component: HeroesComponent
-                    },
-                    {
-                        path: "detail/:id",
-                        component: HeroDetailComponent
-                    },
-                    {
-                        path: 'dashboard',
-                        component: DashboardComponent
-                    },
-                    {
                         path:'devices',
                         component: DeviceComponent
                     },
@@ -40,7 +25,7 @@ import {LoginComponent} from "./login.component";
                     },
                     {
                         path: '',
-                        component: DashboardComponent
+                        component: DeviceComponent
                     },
                 ]
             },

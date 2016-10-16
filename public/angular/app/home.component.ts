@@ -10,8 +10,6 @@ declare var __moduleName: string;
       <h1>{{title}}</h1>
       <button (click)="logout()">Logout</button>
       <nav>
-        <a routerLink="/app/dashboard" routerLinkActive="active">Dashboard</a>
-        <a routerLink="/app/heroes" routerLinkActive="active">Heroes</a>
         <a routerLink="/app/devices" routerLinkActive="active">Devices</a>
       </nav>
       <router-outlet></router-outlet>
@@ -25,7 +23,7 @@ declare var __moduleName: string;
 })
 
 export class HomeComponent {
-    title = ' Tour of heroes';
+    title = '设备管理';
 
     constructor(private user:UserService){}
 
