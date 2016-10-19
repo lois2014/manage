@@ -5,7 +5,7 @@ import {Device} from "./device";
 
 @Component({
     selector: 'app-device',
-    templateUrl:'/public/angular/tpl/device.component.html',
+    templateUrl:'/public/angular/tpl/device.html',
     styleUrls:['http://local.tp5.com/public/angular/css/hero.component.css'],
     animations: [
         trigger('flyInOut', [
@@ -92,6 +92,7 @@ export class DeviceComponent implements OnInit{
 
     onSelect(device:any){
         this.selected = device;
+        this.gotoDetail();
     }
 
     getChoice(){

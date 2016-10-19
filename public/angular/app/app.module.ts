@@ -28,7 +28,7 @@ import {LoginRoutingModule} from "./login_routing.module";
       LoginComponent,
       HomeComponent,
       DeviceComponent,
-      DeviceDetailComponent
+      DeviceDetailComponent,
   ],
   providers: [
         UserService,

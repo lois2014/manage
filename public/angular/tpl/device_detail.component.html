@@ -1,6 +1,6 @@
-<div *ngIf="dev">
-<div class="container" >
-    <div  [hidden]="!submitted">
+
+<div class="container" *ngIf="dev">
+    <div  [hidden]="submitted">
         <h1>{{ dev.name }}</h1>
         <form *ngIf="active" (ngSubmit)="onSubmit()" #device_detail="ngForm">
             <div class="form-group">
@@ -77,41 +77,8 @@
                     measure is required
                 </div>
             </div>
-            <button type="submit" class="btn btn-default" [disabled]="!device_detail.form.valid">Submit</button>
+            <button type="submit" class="btn btn-default" [disabled]="!device_detail.form.valid">保存</button>
+            <button type="button" class="btn btn-default" (click)="goBack()">返回</button>
         </form>
     </div>
-    <div [hidden]="submitted">
-        <h2>Detail</h2>
-        <div class="row">
-            <div class="col-xs-3">ID</div>
-            <div class="col-xs-9  pull-left">{{ dev.id }}</div>
-        </div>
-        <div class="row">
-            <div class="col-xs-3">Name</div>
-            <div class="col-xs-9  pull-left">{{ dev.name }}</div>
-        </div>
-        <div class="row">
-            <div class="col-xs-3">version</div>
-            <div class="col-xs-9 pull-left">{{ dev.version }}</div>
-        </div>
-        <div class="row">
-            <div class="col-xs-3">type</div>
-            <div class="col-xs-9 pull-left">{{ dev.type_name }}</div>
-        </div>
-        <div class="row">
-            <div class="col-xs-3">master</div>
-            <div class="col-xs-9 pull-left">{{ dev.master }}</div>
-        </div>
-        <div class="row">
-            <div class="col-xs-3">maker</div>
-            <div class="col-xs-9 pull-left">{{ dev.maker_name }}</div>
-        </div>
-        <div class="row">
-            <div class="col-xs-3">measure</div>
-            <div class="col-xs-9 pull-left">{{ dev.measure }}</div>
-        </div>
-        <br>
-        <button class="btn btn-default" (click)="submitted=true">Edit</button>
-    </div>
-</div>
 </div>

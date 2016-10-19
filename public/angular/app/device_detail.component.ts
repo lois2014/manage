@@ -1,6 +1,5 @@
 import { Component,Input,OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import { Location } from '@angular/common';
 
 import {DeviceService} from "./device.service";
 declare var __moduleName: string;
@@ -54,15 +53,20 @@ export class DeviceDetailComponent implements OnInit{
                  this.submitted = false;
              }else{
                  alert(val.msg);
+                 window.history.back();
              }
-             this.router.navigate(['../app/device/',data.id]);
          });
-        this.router.navigate(['../app/device/',data.id]);
     }
 
     onSubmit()
     {
         this.submitted = true;
         this.updateDevice(this.dev);
+        this.router.navigate(['../app/devices']);
+    }
+
+    goBack()
+    {
+        window.history.back();
     }
 }
