@@ -6,6 +6,9 @@ class BaseService{
 
     public function getArray($model,$field='')
     {
+        if(empty($model)){
+            return [];
+        }
         $info =[];
         if(!empty($field)){
             foreach ($model as $item){

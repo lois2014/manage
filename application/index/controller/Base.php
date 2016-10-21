@@ -34,7 +34,10 @@ class Base extends Controller
         return json_encode($return);
     }
 
-    public function getPost($data){
-        return json_decode(key($data),true);
+    public function setCode()
+    {
+        $time=substr(date('Y'),2).date('m').date("d");
+        $code = $time.substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(0, 99));
+        return $code;
     }
 }

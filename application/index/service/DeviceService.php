@@ -6,21 +6,27 @@ use app\index\model\Device;
 class DeviceService extends BaseService
 {
 
-    public function getDevices($start,$limit)
+    public function getDevices($start='',$limit='',$all=true)
     {
         $device = new Device();
-        $db = $device->where('status',1)->limit($start,$limit)->select();
-        $info = $this->getArray($db);
-        $typeService = new TypeService();
-        $type = array_column($typeService->getTypes(),'type_name','id');
-        foreach ($info as &$item){
-            $item['type_name']=$type[$item['type_id']];
+        if(!empty($start)){
+            $db = $device->where('status',1)->limit($start,$limit)->select();
+        }else{
+            $db = $device->where('status',1)->select();
         }
+        $info = $this->getArray($db);
+        if($all){
+            $typeService = new TypeService();
+            $type = array_column($typeService->getTypes(),'type_name','id');
+            foreach ($info as &$item){
+                $item['type_name']=$type[$item['type_id']];
+            }
 
-        $sup = new SupplierService();
-        $makers = array_column($sup->getSuppliers(),'name','id');
-        foreach ($info as &$item){
-            $item['maker_name']=$makers[$item['maker_id']];
+            $sup = new SupplierService();
+            $makers = array_column($sup->getSuppliers(),'name','id');
+            foreach ($info as &$item){
+                $item['maker_name']=$makers[$item['maker_id']];
+            }
         }
         return $info;
     }
@@ -29,6 +35,13 @@ class DeviceService extends BaseService
     {
         $res = Device::create($data);
         return $res->id;
+    }
+
+    public function addDevices($data)
+    {
+        $device = new Device();
+        $ids = $device->allowField(true)->saveAll($data,false);
+        return $ids;
     }
 
     public function getDevice($id)

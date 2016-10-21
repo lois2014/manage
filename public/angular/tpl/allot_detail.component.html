@@ -1,0 +1,43 @@
+<div class="row" *ngIf="allot">
+    <div class="col-lg-12" [hidden]="submitted">
+        <div class="panel panel-default">
+            <div class="panel-heading">调拨编辑表</div>
+            <div class="panel-body">
+                <div class="col-md-6" >
+                    <form (ngSubmit)="onSubmit()" #allot_detail="ngForm">
+                        <div class="form-group">
+                            <label for="dev_id">设备名称</label>
+                            <select class="form-control" id="dev_id" required [(ngModel)]="allot.dev_id" name="dev_id" #dev_id="ngModel" disabled>
+                                <option *ngFor="let p of dev" [value]="p.id" selected="p.id == allot.dev_id">{{p.name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="type">类型</label>
+                            <select class="form-control" id="type" required  [(ngModel)]="allot.type"  name="type" #type="ngModel">
+                                <option [value]="1" selected="1 == allot.type">借出</option>
+                                <option [value]="3" selected="3 == allot.type">回收</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dep_id">部门</label>
+                            <select class="form-control" id="dep_id" required [(ngModel)]="allot.dep_id" name="dep_id" #dep_id="ngModel">
+                                <option *ngFor="let p of dep" [value]="p.id" selected="p.id == allot.dep_id">{{p.name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dev_usage">用途</label>
+                            <textarea class="form-control" id="dev_usage"  placeholder="Usage" required [(ngModel)]="allot.dev_usage" name="dev_usage" #dev_usage="ngModel">{{allot.dev_usage}}</textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-default" [disabled]="!allot_detail.form.valid">Submit</button>
+                        <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div><!-- /.col-->
+</div><!-- /.row -->

@@ -1,6 +1,7 @@
-import { Component,OnInit } from '@angular/core' ;
+import {Component, OnInit, Input} from '@angular/core' ;
 import { UserService } from './user.service';
 import { Router } from '@angular/router';
+import {Common} from "./common";
 
 declare var __moduleName: string;
 @Component({
@@ -17,8 +18,12 @@ declare var __moduleName: string;
 
 export class HomeComponent {
 
-    title = '设备管理';
-    constructor(private user:UserService){}
+    common:Common;
+    constructor(private user:UserService){
+        this.common = new Common();
+        this.common.title='首页';
+        this.common.subTitle='';
+    }
 
     logout(){
         this.user.logout().subscribe(val=>{

@@ -10,6 +10,7 @@ use think\Request;
 
 class Device extends Base
 {
+    //1-上线、2-封存、3-闲置、4-报废、5-待修、 6-备用
     public function deviceList()
     {
         $post = json_decode(Request::instance()->getContent(),true);
@@ -18,12 +19,26 @@ class Device extends Base
         $start = ($page-1)*$pageSize;
         $device = new DeviceService();
         $info = $device->getDevices($start,$pageSize);
+        foreach ($info as &$item)
+        {
+            $name = '';
+            switch ($item['dev_status']){
+                case '1':$name ='上线';break;
+                case '2':$name ="封存";break;
+                case '3':$name ="闲置";break;
+                case '4':$name ="报废";break;
+                case '5':$name ="待修";break;
+                case '6':$name ="备用";break;
+            }
+            $item['status_name'] = $name;
+        }
         return $this->ajaxSuccess($info);
     }
 
     public function add()
     {
         $post = json_decode(Request::instance()->getContent(),true);
+        $code = $this->setCode();
         if(empty($post))
         {
             $sup = new SupplierService();
@@ -41,6 +56,7 @@ class Device extends Base
         $uid =$user['id'];
         $post['user_id'] = $uid;
         $post['last_user'] = $uid;
+        $post['code'] = $code;
         $post = $this->checkData($post);
         if(!is_array($post)){
             return $this->ajaxFail($post);

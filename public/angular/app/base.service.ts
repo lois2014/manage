@@ -9,11 +9,11 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class BaseService {
-
+    private baseUrl = 'http://local.tp5.com/public/index.php/';
     constructor(private http:Http){}
 
     getData(url:string): Observable <any> {
-        return this.http.get(url)
+        return this.http.get(this.baseUrl+url)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -23,7 +23,7 @@ export class BaseService {
         let body = JSON.stringify(data);
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post(url,body,options)
+        return this.http.post(this.baseUrl+url,body,options)
             .map(this.extractData)
             .catch(this.handleError);
 

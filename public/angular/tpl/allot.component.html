@@ -1,0 +1,85 @@
+
+<div *ngIf="ADD==0" class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">列表   <button class="btn btn-default" style="float: right" (click)=" ADD=true "><span class="glyphicon glyphicon-s glyphicon-plus"></span>新增</button> </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>设备名称</th>
+                        <th>类型</th>
+                        <th>用途</th>
+                        <th>审核人</th>
+                        <th>备注</th>
+                        <th>创建时间</th>
+                        <th>状态</th>
+                        <th> </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let allot of list" (click)="onSelect(allot)" [class.selected]="allot === selected">
+                        <td>{{allot.id}}</td>
+                        <td>{{allot.dev_name}}</td>
+                        <td>{{allot.type == 1?'借出':allot.type==2?'归还':'回收'}}</td>
+                        <td>{{allot.dev_usage}}</td>
+                        <td>{{allot.master}}</td>
+                        <td>{{allot.remark}}</td>
+                        <td>{{allot.create_time }}</td>
+                        <td>{{allot.access_status == 2?'审核中':allot.access_status==1?'已通过':'未通过'}}</td>
+                        <td [hidden]="!(allot.access_status == 2)"><button class="btn btn-default" (click)="pass(allot,1)">通过</button>
+                            <button class="btn btn-default" (click)="pass(allot,3)">不通过</button></td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div><!--/.row-->
+
+<div class="row" *ngIf="ADD">
+    <div class="col-lg-12" [hidden]="submitted">
+        <div class="panel panel-default">
+            <div class="panel-heading">调拨新增表</div>
+            <div class="panel-body">
+                <div class="col-md-6" >
+                    <form *ngIf="active" #allot="ngForm" (ngSubmit)="onSubmit(allot.value)">
+                        <div class="form-group">
+                            <label for="dev_id">设备名称</label>
+                            <select class="form-control" id="dev_id" required name="dev_id" ngModel>
+                                <option *ngFor="let p of dev" [value]="p.id">{{p.name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="type">类型</label>
+                            <select class="form-control" id="type" required name="type" ngModel>
+                                <option [value]="1">借出</option>
+                                <option [value]="3">回收</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dep_id">部门</label>
+                            <select class="form-control" id="dep_id" required name="dep_id" ngModel>
+                                <option *ngFor="let p of dep" [value]="p.id">{{p.name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dev_usage">用途</label>
+                            <textarea class="form-control" id="dev_usage"  placeholder="Usage" required name="dev_usage" ngModel></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-default" [disabled]="!allot.form.valid">Submit</button>
+                        <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div><!-- /.col-->
+</div><!-- /.row -->

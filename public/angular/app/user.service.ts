@@ -10,9 +10,9 @@ import 'rxjs/add/operator/catch';
 import {BaseService} from "./base.service";
 @Injectable()
 export class UserService{
-    private isLoginUrl = 'http://local.tp5.com/public/index.php/user/isLogin';
-    private loginUrl = 'http://local.tp5.com/public/index.php/user/login';
-    private logoutUrl = 'http://local.tp5.com/public/index.php/user/logout';
+    private isLoginUrl = 'user/isLogin';
+    private loginUrl = 'user/login';
+    private logoutUrl = 'user/logout';
 
     constructor(private base:BaseService){
     }

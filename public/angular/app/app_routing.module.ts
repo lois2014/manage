@@ -5,7 +5,8 @@ import {HomeComponent} from "./home.component";
 import {DeviceComponent} from "./device.component";
 import {DeviceDetailComponent} from "./device_detail.component";
 import {LoginComponent} from "./login.component";
-
+import {AllotComponent} from "./allot.component";
+import {AllotDetailComponent} from "./allot_detail.component";
 @NgModule({
     imports:[
         RouterModule.forRoot([
@@ -27,6 +28,14 @@ import {LoginComponent} from "./login.component";
                         path: '',
                         component: DeviceComponent
                     },
+                    {
+                        path: 'allot',
+                        component: AllotComponent
+                    },
+                    {
+                        path: 'allot/:id',
+                        component: AllotDetailComponent
+                    },
                 ]
             },
             {
@@ -37,7 +46,7 @@ import {LoginComponent} from "./login.component";
         ],{ useHash:true }),
     ],
     exports:[
-        RouterModule,
+        RouterModule
     ]
 })
 

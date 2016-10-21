@@ -14,6 +14,9 @@ import {DeviceDetailComponent} from "./device_detail.component";
 import {APP_BASE_HREF} from "@angular/common";
 import {AppRoutingModule} from "./app_routing.module";
 import {LoginRoutingModule} from "./login_routing.module";
+import {AllotComponent} from "./allot.component";
+import {AllotService} from "./allot.service";
+import {AllotDetailComponent} from "./allot_detail.component";
 
 @NgModule({
   imports: [
@@ -21,7 +24,7 @@ import {LoginRoutingModule} from "./login_routing.module";
       FormsModule,
       HttpModule,
       AppRoutingModule,
-      LoginRoutingModule
+      LoginRoutingModule,
   ],
   declarations: [
       AppComponent,
@@ -29,11 +32,14 @@ import {LoginRoutingModule} from "./login_routing.module";
       HomeComponent,
       DeviceComponent,
       DeviceDetailComponent,
+      AllotComponent,
+      AllotDetailComponent
   ],
   providers: [
         UserService,
         BaseService,
         DeviceService,
+        AllotService,
         {provide: APP_BASE_HREF, useValue: '/my'},
   ],
   bootstrap: [ AppComponent ]
