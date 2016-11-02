@@ -3,7 +3,7 @@ namespace app\index\model;
 
 use think\Model;
 
-class Order extends Model
+class DevOrder extends Model
 {
 //自定义初始化
     protected function initialize()
