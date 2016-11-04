@@ -1,8 +1,10 @@
 <?php
 
 namespace app\index\service;
+use think\Model;
+use app\index\controller;
 
-class BaseService{
+class BaseService extends Model{
 
     public function getArray($model,$field='')
     {
@@ -22,6 +24,19 @@ class BaseService{
             }
         }
         return $info;
+    }
+
+    public function call_func($className,$func,$data='')
+    {
+        $class = new $className();
+        if(method_exists($class,$func)) {
+            if(!empty($data)){
+                return $class->$func($data);
+            }
+            return $class->$func();
+        }else{
+            throw new \think\Exception('方法不存在', 100006);
+        }
     }
 
 }

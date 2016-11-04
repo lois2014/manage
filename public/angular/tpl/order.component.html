@@ -1,0 +1,122 @@
+
+
+<div *ngIf="ADD==0" class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">列表 <button class="btn btn-default" style="float: right" (click)=" ADD=true "><span class="glyphicon glyphicon-s glyphicon-plus"></span>新增</button> </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>名称</th>
+                        <th>申请单号</th>
+                        <th>型号</th>
+                        <th>申请人</th>
+                        <th>部门</th>
+                        <th>生产商</th>
+                        <th>供应商</th>
+                        <th>数量</th>
+                        <th>价格</th>
+                        <th>申请时间</th>
+                        <th>预计收货时间</th>
+                        <th>实际收货时间</th>
+                        <th>状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let order of list" >
+                        <td>{{order.id}}</td>
+                        <td>{{order.dev_name}}</td>
+                        <td>{{order.order_no}}</td>
+                        <td>{{order.version}}</td>
+                        <td>{{order.username}}</td>
+                        <td>{{order.dep_name}}</td>
+                        <td>{{order.maker}}</td>
+                        <td>{{order.sup_name}}</td>
+                        <td>{{order.amount}}</td>
+                        <td>{{order.price}}</td>
+                        <td>{{order.create_time}}</td>
+                        <td>{{order.get_time}}</td>
+                        <td>{{order.real_get_time}}</td>
+                        <td>{{order.status_name}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div><!--/.row-->
+
+<div class="row" *ngIf="ADD">
+    <div class="col-lg-12" [hidden]="submitted">
+        <div class="panel panel-default">
+            <div class="panel-heading">申请设备</div>
+            <div class="panel-body">
+                <div class="col-md-6" >
+                    <form (ngSubmit)="onSubmit(order.value)" #order="ngForm">
+                        <div class="form-group">
+                            <label for="dev_name">名称</label>
+                            <input type="text" class="form-control" id="dev_name" placeholder="name" required
+                                   name="dev_name" ngModel>
+                        </div>
+                        <div class="form-group">
+                            <label for="version">型号</label>
+                            <input type="text" class="form-control" id="version"  placeholder="version" required
+                                   name="version" ngModel>
+                        </div>
+                        <div class="form-group">
+                            <label for="type_id">申请部门</label>
+                            <select class="form-control" id="type_id"
+                                    required name="dep_id" ngModel>
+                                <option *ngFor="let p of dep" [value]="p.id">{{p.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sup_id">供应商</label>
+                            <select class="form-control" id="sup_id"
+                                    required name="sup_id" ngModel>
+                                <option *ngFor="let m of sup" [value]="m.id">{{m.name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="maker">生产商</label>
+                            <input type="text" class="form-control" id="maker" placeholder="maker" required
+                                   name="maker" ngModel>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">申请价格</label>
+                            <input type="text" class="form-control" id="price" placeholder="price" required
+                                   name="price" ngModel>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="amount">购买数量</label>
+                            <input type="text" class="form-control" id="amount"  placeholder="amount" required
+                                   name="amount" ngModel>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="reason">原因</label>
+                            <textarea  class="form-control" id="reason"  placeholder="reason" required
+                                   name="reason" ngModel></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="memo">备注</label>
+                            <textarea  class="form-control" id="memo"  placeholder="memo"
+                                       name="memo" ngModel></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-default" [disabled]="!order.form.valid">Submit</button>
+                        <button class="btn btn-default" (click)="cancel()">Cancel</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div><!-- /.col-->
+</div><!-- /.row -->

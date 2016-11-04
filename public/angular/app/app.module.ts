@@ -17,6 +17,8 @@ import {LoginRoutingModule} from "./login_routing.module";
 import {AllotComponent} from "./allot.component";
 import {AllotService} from "./allot.service";
 import {AllotDetailComponent} from "./allot_detail.component";
+import {DevOrderComponent} from "./dev_order.component";
+import {OrderService} from "./order.service";
 
 @NgModule({
   imports: [
@@ -33,13 +35,15 @@ import {AllotDetailComponent} from "./allot_detail.component";
       DeviceComponent,
       DeviceDetailComponent,
       AllotComponent,
-      AllotDetailComponent
+      AllotDetailComponent,
+      DevOrderComponent
   ],
   providers: [
         UserService,
         BaseService,
         DeviceService,
         AllotService,
+        OrderService,
         {provide: APP_BASE_HREF, useValue: '/my'},
   ],
   bootstrap: [ AppComponent ]

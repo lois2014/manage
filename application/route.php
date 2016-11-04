@@ -33,4 +33,7 @@ return [
     'allot/update' => 'index/Allot/update',
     'allot/detail' => 'index/Allot/detail',
     'order/add' => 'index/Order/add',
+    'order/list' => 'index/Order/orderList',
+    'order/del' => 'index/Order/del',
+    'workflow/run' => 'index/Workflow/run',
 ];

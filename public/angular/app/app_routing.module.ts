@@ -7,6 +7,7 @@ import {DeviceDetailComponent} from "./device_detail.component";
 import {LoginComponent} from "./login.component";
 import {AllotComponent} from "./allot.component";
 import {AllotDetailComponent} from "./allot_detail.component";
+import {DevOrderComponent} from "./dev_order.component";
 @NgModule({
     imports:[
         RouterModule.forRoot([
@@ -36,6 +37,10 @@ import {AllotDetailComponent} from "./allot_detail.component";
                         path: 'allot/:id',
                         component: AllotDetailComponent
                     },
+                    {
+                        path: 'order',
+                        component: DevOrderComponent
+                    }
                 ]
             },
             {
