@@ -17,9 +17,10 @@ class OrderService extends BaseService
     {
         $order = new DevOrder();
         $data['order_no'] = $this->setOrderNo();
-        $ids = $order->allowField(true)->saveAll([0=>$data],false);
-        if(empty($ids)) return '';
-        return current($ids);
+        $db = $order->allowField(true)->saveAll([0=>$data],false);
+        if(empty($db)) return [];
+        $info = $this->getArray($db);
+        return $info;
     }
     public function getOrder()
     {
@@ -40,6 +41,13 @@ class OrderService extends BaseService
             ->select();
 //        var_dump($list);die;
         return $list;
+    }
+
+    public function getOrderById($id)
+    {
+        $db = DevOrder::get($id);
+        if(empty($db)) return [];
+        return $db->toArray();
     }
 
     public function updateOrder($data)

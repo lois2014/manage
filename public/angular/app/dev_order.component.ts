@@ -34,11 +34,23 @@ export class DevOrderComponent implements OnInit
         });
     }
 
+    runThread(id:any)
+    {
+        let data={'thrId':id,'op':'runThread'}
+        this.order.run(data).subscribe(val=>{
+            if(val.state != 1){
+                alert(val.msg);
+            }
+        });
+    }
+
     addOrder(data:any){
         this.order.addOrder(data).subscribe(val=>{
            if(val.state == 1){
                alert('新增成功');
                this.ADD = false;
+               this.submitted = false;
+               this.runThread(val.data.thrId);
                this.router.navigate(['../app/order']);
            }else{
                alert('新增失败');
@@ -50,7 +62,8 @@ export class DevOrderComponent implements OnInit
     onSubmit(data:any)
     {
         this.submitted = true;
-        this.addOrder(data);
+        let info={'data':data,'defId':1,'op':'startProcess'};
+        this.addOrder(info);
     }
 
     cancel()

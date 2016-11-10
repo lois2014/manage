@@ -3,6 +3,7 @@
 namespace app\index\model;
 
 use think\Model;
+use think\Db;
 
 class WorkflowThread extends Model
 {

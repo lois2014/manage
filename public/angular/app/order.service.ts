@@ -6,7 +6,8 @@ import {BaseService} from "./base.service";
 export class OrderService{
     constructor(private base:BaseService){}
     private listUrl = 'order/list';
-    private addUrl = 'order/add';
+    private addUrl = 'workflow/run';
+    private runUrl = 'workflow/run';
 
     getOrderList():Observable <any> {
         return this.base.getData(this.listUrl);
@@ -15,4 +16,10 @@ export class OrderService{
     addOrder(data:any):Observable <any> {
         return this.base.postData(data,this.addUrl);
     }
+
+    run(data:any):Observable <any> {
+        return this.base.postData(data,this.runUrl);
+    }
+
+
 }

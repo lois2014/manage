@@ -1,21 +1,20 @@
 <?php
 namespace app\index\service;
 
-use app\index\model\WorkflowDefination;
+use app\index\model\WorkflowDefinition;
 
 class WorkflowDefService extends BaseService
 {
-    public function getDefination($id)
+    public function getDefinition($id)
     {
-        $def = new WorkflowDefination();
-        $db = $def->where(['id'=>$id])->find();
-        $info = $db->toArray();
-        return $info;
+        $info = WorkflowDefinition::get($id);
+        if(empty($info)) return [];
+        return $info->toArray();
     }
 
-    public function getDefinationList()
+    public function getDefinitionList()
     {
-        $def = new WorkflowDefination();
+        $def = new WorkflowDefinition();
         $db = $def->where(['status'=>1])->select();
         $info = $this->getArray($db);
         return $info;

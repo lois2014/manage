@@ -5,10 +5,13 @@ use app\index\model\WorkflowNode;
 
 class WorkflowNodService extends BaseService
 {
-    public function getNode($defId,$index)
+    public function getNode($defId,$index,$field='')
     {
         $node = new WorkflowNode();
-        $db = $node->where(['def_id'=>$defId,'node_index'=>$index])->find();
+        if(!empty($field)){
+            $node->field($field);
+        }
+        $db = $node->where(['def_id'=>$defId,'index'=>$index])->find();
         if(empty($db)) return '';
         $info = $db->toArray();
         return $info;
