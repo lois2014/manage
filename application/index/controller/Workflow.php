@@ -19,14 +19,14 @@ class Workflow extends Base
     {
         $json = Request::instance()->getContent();
         $post = json_decode($json,true);
-//        $post = $_POST;
+        $post = $_POST;
         if(empty($post)){
             return $this->ajaxFail('数据为空');
         }
 //        var_dump($post);die;
-        $user = Cookie::get('user');
-        if(empty($user)) return $this->ajaxFail('未登录');
-        $post['user_id'] = $user['id'];
+//        $user = Cookie::get('user');
+//        if(empty($user)) return $this->ajaxFail('未登录');
+        $post['user_id'] = 1;
         $service = new WorkflowService();
         $service->_constructor($post);
         $return = $this->ajaxSuccess();

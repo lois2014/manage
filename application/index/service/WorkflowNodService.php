@@ -11,18 +11,23 @@ class WorkflowNodService extends BaseService
         if(!empty($field)){
             $node->field($field);
         }
+        if(is_array($index)){
+            $db = $node->where(['def_id'=>$defId,'index'=>['in',$index]])->select();
+            $info = $this->getArray($db);
+            return $info;
+        }
         $db = $node->where(['def_id'=>$defId,'index'=>$index])->find();
-        if(empty($db)) return '';
-        $info = $db->toArray();
+        $info = $this->getArray($db);
         return $info;
     }
+
 
     public function getNodeById($id)
     {
         $node = new WorkflowNode();
         $db = $node->where(['id'=>$id])->find();
         if(empty($db)) return '';
-        $info = $db->toArray();
+        $info = $this->getArray($db);
         return $info;
     }
 

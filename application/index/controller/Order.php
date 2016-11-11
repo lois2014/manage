@@ -44,6 +44,7 @@ class Order extends Base
 //            var_dump($item['order_status']);die;
             switch($item['order_status']){
                 case '1':$name='待审核';break;
+                case '0':$name='新建';break;
                 case '2':$name='待购置';break;
                 case '3':$name='待验收';break;
                 case '4':$name='待确认';break;

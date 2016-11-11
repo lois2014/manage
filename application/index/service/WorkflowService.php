@@ -119,7 +119,7 @@ class WorkflowService extends BaseService
                 $param=['process'=>$process,'node'=>$node,'thread'=>$thread];
                 $ctrl = new \app\index\controller\Base();
                 $return =  $ctrl->call_func($this->handler,$node['run_function'],$param);
-//                var_dump($return);die;
+                var_dump($return);die;
                 break;
         }
         return isset($return)?$return:false;

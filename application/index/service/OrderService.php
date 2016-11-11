@@ -22,21 +22,25 @@ class OrderService extends BaseService
         $info = $this->getArray($db);
         return $info;
     }
-    public function getOrder()
+    public function getOrder($class,$status=1)
     {
         $where = [
-            'ord.status'=>1,
+            'ord.status'=>$status,
             'sup.status'=>1,
-            'dep.status'=>1
+            'dep.status'=>1,
+            'd.handler'=>$class
         ];
 //        $list = Db::Query('SELECT sup.name sup_name,dep.name dep_name, FROM supplier sup , department dep , s WHERE sup.status = 1');
         $list = Db::table('dev_order')
             ->alias('ord')
-            ->field('ord.*,sup.name sup_name,dep.name dep_name,u.username')
+            ->field('ord.*,sup.name sup_name,dep.name dep_name,u.username,w.name as status_name')
             ->join('supplier sup','ord.sup_id = sup.id','left')
             ->join('department dep','ord.dep_id = dep.id','left')
             ->join('user u','u.id = ord.user_id','left')
+            ->join('workflow_node w','w.index = ord.order_status','left')
+            ->join('workflow_definition d','d.id = w.def_id','left')
             ->where($where)
+            ->order('ord.create_time DESC')
 //            ->fetchSql(true)
             ->select();
 //        var_dump($list);die;
@@ -52,9 +56,9 @@ class OrderService extends BaseService
 
     public function updateOrder($data)
     {
-        if(empty($id)) return '';
+        if(empty($data['id'])) return '';
         $order = new DevOrder();
-        $order->update($data);
-        return $id;
+        $num = $order->update($data);
+        return $data['id'];
     }
 }

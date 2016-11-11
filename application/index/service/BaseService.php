@@ -11,13 +11,22 @@ class BaseService extends Model{
         if(empty($model)){
             return [];
         }
+
         $info =[];
         if(!empty($field)){
+            if(!is_array($model)){
+                $info = $model->visible($field)->toArray();
+                return $info;
+            }
             foreach ($model as $item){
                 $data=$item->visible($field)->toArray();
                 $info[]=$data;
             }
         }else{
+            if(!is_array($model)){
+                $info = $model->toArray();
+                return $info;
+            }
             foreach ($model as $item){
                 $data=$item->toArray();
                 $info[]=$data;

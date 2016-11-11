@@ -3,6 +3,8 @@
 namespace app\index\controller;
 
 use app\index\service\OrderService;
+use app\index\service\DepartmentService;
+use app\index\service\SupplierService;
 use app\index\service\WorkflowNodService;
 use app\index\service\WorkflowProService;
 use app\index\service\WorkflowThrService;
@@ -72,20 +74,16 @@ class Purchase extends Base
                 return $this->ajaxFail($return);
             }
 
-            $id = $process['context'];
+            $id = (int)$process['context'];
             $ordService = new OrderService();
             $order['id'] = $id;
             $order['order_status'] = $process['node_index'];
-            var_dump($order);die;
+//            var_dump($order);die;
             $ordService->updateOrder($order);
 
             $nextNodes=explode(',',$node['next_index']);
             $nodService = new WorkflowNodService();
-            $nodes=[];
-            foreach ($nextNodes as $value)
-            {
-                $nodes[] = $nodService->getNode($process['def_id'],$value,['id','index','name']);
-            }
+            $nodes = $nodService->getNode($process['def_id'],$nextNodes,['id','index','name']);
             $data = [
                 'thrId'=>$thread['id'],
                 'nextNodes'=>$nodes,
@@ -117,7 +115,6 @@ class Purchase extends Base
             var_dump($info);die;
         }
         $user = Cookie::get('user');
-        $user['id']=$user['id'];
         $executor = json_decode($thread['executor'],true);
         if(isset($executor['user'])){
             $ids = explode(',',$executor['user']);
@@ -154,5 +151,19 @@ class Purchase extends Base
             }
         }
         return $data;
+    }
+
+    //1-待审核，2-待购置, 3-待验收，4-待确认，5-待入库, 6-入库
+    public function orderList()
+    {
+        $service = new OrderService();
+        $info = $service->getOrder(__CLASS__);
+        var_dump($info);die;
+        $data['orders'] = $info;
+        $dep = new DepartmentService();
+        $sup = new SupplierService();
+        $data['dep'] = $dep->getDep();
+        $data['sup'] = $sup->getSuppliers();
+        return $this->ajaxSuccess($data);
     }
 }
