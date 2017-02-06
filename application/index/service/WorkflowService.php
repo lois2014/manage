@@ -187,7 +187,7 @@ class WorkflowService extends BaseService
                     $ctrl = new \app\index\controller\Base();
                     $ctrl->call_func($this->handler,$node['transit_function'],['process'=>$process,'node'=>$node,'thread'=>$thread,'nextNodeIndex'=>$nextNodeIndex]);
                 }
-                $this->initProcess($defId);
+//                $this->initProcess($defId);
                 $return = $this->initThread($nextNodeIndex);
                 break;
         }

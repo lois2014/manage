@@ -37,7 +37,7 @@ class Order extends Base
     public function orderList()
     {
         $service = new OrderService();
-        $info = $service->getOrder();
+        $info = $service->getOrder('Purchase');
 //        var_dump($info);die;
         foreach($info as &$item){
             $name='';

@@ -152,18 +152,4 @@ class Purchase extends Base
         }
         return $data;
     }
-
-    //1-待审核，2-待购置, 3-待验收，4-待确认，5-待入库, 6-入库
-    public function orderList()
-    {
-        $service = new OrderService();
-        $info = $service->getOrder(__CLASS__);
-        var_dump($info);die;
-        $data['orders'] = $info;
-        $dep = new DepartmentService();
-        $sup = new SupplierService();
-        $data['dep'] = $dep->getDep();
-        $data['sup'] = $sup->getSuppliers();
-        return $this->ajaxSuccess($data);
-    }
 }
